@@ -71,5 +71,30 @@
           <script src="components/navbar/navbar.controller.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
+        <script type='text/ng-template' id='/main.html'>
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <header class="page-header">Flapper News 2</header>
+              <p><em>{{ text }}</em></p>
+              <ol>
+                <li ng-repeat="post in posts | orderBy: '-upvotes'">
+                  <span ng-click="incrementUpvotes(post)" style="cursor:pointer; padding:0 5px;">↑</span>
+                  <span ng-hide="post.link">{{ post.title }}</span>  
+                  <a ng-show="post.link" href="{{ post.link }}">
+                    {{ post.title }}
+                  </a>
+                  #{{ post.upvotes }}
+                </li>
+              </ol>
+              <form ng-submit="addPost();">
+                <input type="text" placeholder="Title" ng-model="title" />
+                <br />
+                <input type="text" placeholder="Link URL" ng-model="link" />
+                <br />
+                <button type="submit">Il Postino</button>  
+              </form>
+            </div>
+          </div>
+        </script>
 </body>
 </html>

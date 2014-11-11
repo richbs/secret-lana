@@ -5,7 +5,12 @@ angular.module('secretLanaApp')
     $stateProvider
       .state('main', {
         url: '/',
-        templateUrl: 'app/main/main.html',
+        templateUrl: '/main.html',
         controller: 'MainCtrl'
+      })
+      .state('posts', {
+      	url: '/posts/{id}',
+      	templateUrl: 'app/main/posts.html',
+      	controller: 'PostsCtrl'
       });
   });
