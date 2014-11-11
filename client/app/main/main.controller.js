@@ -31,7 +31,7 @@ angular.module('secretLanaApp')
         ]
       });
       $scope.title = '';
-      $scope.link = 0;
+      $scope.link = '';
     };
     $scope.incrementUpvotes = function(post) {
       post.upvotes +=1;
