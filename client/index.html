@@ -32,8 +32,12 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div ui-view=""></div>
-
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <header class="page-header">Flapper News 3</header>    
+          <ui-view></ui-view>
+      </div>
+    </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -72,29 +76,47 @@
           <!-- endinjector -->
         <!-- endbuild -->
         <script type='text/ng-template' id='/main.html'>
-          <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-              <header class="page-header">Flapper News 2</header>
-              <p><em>{{ text }}</em></p>
-              <ol>
-                <li ng-repeat="post in posts | orderBy: '-upvotes'">
-                  <span ng-click="incrementUpvotes(post)" style="cursor:pointer; padding:0 5px;">↑</span>
-                  <span ng-hide="post.link">{{ post.title }}</span>  
-                  <a ng-show="post.link" href="{{ post.link }}">
-                    {{ post.title }}
-                  </a>
-                  #{{ post.upvotes }}
-                </li>
-              </ol>
-              <form ng-submit="addPost();">
-                <input type="text" placeholder="Title" ng-model="title" />
-                <br />
-                <input type="text" placeholder="Link URL" ng-model="link" />
-                <br />
-                <button type="submit">Il Postino</button>  
-              </form>
-            </div>
-          </div>
+          <p><em>{{ text }}</em></p>
+          <ol>
+            <li ng-repeat="post in posts | orderBy: '-upvotes'">
+              <span ng-click="incrementUpvotes(post)" style="cursor:pointer; padding:0 5px;">↑</span>
+              <span ng-hide="post.link">{{ post.title }}</span> 
+              <span><a href="/posts/{{$index}}">Comments</a></span>  
+              <a ng-show="post.link" href="{{ post.link }}">
+                {{ post.title }}
+              </a>
+              #{{ post.upvotes }}
+            </li>
+          </ol>
+          <form ng-submit="addPost();">
+            <input type="text" placeholder="Title" ng-model="title" />
+            <br />
+            <input type="text" placeholder="Link URL" ng-model="link" />
+            <br />
+            <button type="submit">Post</button>  
+          </form>
+        </script>
+        <script type="text/ng-template" id="/posts.html">
+         <div class="page-header">
+          <h3>
+            <a ng-show="post-link" href="{{ post.link }}">{{ post.title }}</a>
+            <span ng-hide="post.link">{{ post.title }}</span>
+          </h3>
+         </div>
+         <div ng-repeat="commit in post.comments | orderBy:'-upvotes'">
+           <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(comment)"></span>
+           {{ comment.upvotes }} - by {{ comment.author }}
+           <span style="font-size:20px; margin-left:10px;">
+             {{ comment.body }}
+           </span>
+         </div>
+         <form ng-submit="addComment()" style="margin-top:30px;">
+           <h3>Add a new comment</h3>
+           <formset class="form-group">
+            <input type="text" class="form-control" placeholder="Comment" ng-model="body" />
+           </formset>
+           <button type="submit" class="btn btn-primary">Post</button>
+         </form>
         </script>
 </body>
 </html>

@@ -10,7 +10,7 @@ angular.module('secretLanaApp')
       })
       .state('posts', {
       	url: '/posts/{id}',
-      	templateUrl: 'app/main/posts.html',
+      	templateUrl: '/posts.html',
       	controller: 'PostsCtrl'
       });
   });
