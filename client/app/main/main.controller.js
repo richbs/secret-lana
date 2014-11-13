@@ -33,16 +33,16 @@ angular.module('secretLanaApp')
       $scope.posts.push({
         title: $scope.title,
         link: $scope.link, 
-        upvotes: $scope.title.length, 
+        upvotes: 0, 
         comments: [
-          {author: 'Joe', body: 'Nice', upvotes:0},
-          {author: 'Bob', body: 'Great work fella', upvotes:0}
+          {author: 'Joe', body: 'Nice', upvotes: 0},
+          {author: 'Bob', body: 'Great work fella', upvotes: 0}
         ]
       });
       $scope.title = '';
       $scope.link = '';
     };
     $scope.incrementUpvotes = function(post) {
-      post.upvotes +=1;
+      post.upvotes += 1;
     };
   }]);
