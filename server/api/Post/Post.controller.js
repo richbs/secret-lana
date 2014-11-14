@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Post = require('./Post.model');
+var Comment = require('../Comment/Comment.model')
 
 // Get list of Posts
 exports.index = function(req, res) {
@@ -13,11 +14,9 @@ exports.index = function(req, res) {
 
 // Get a single Post
 exports.show = function(req, res) {
-  Post.findById(req.params.id, function (err, Post) {
-    if(err) { return handleError(res, err); }
-    if(!Post) { return res.send(404); }
-    return res.json(Post);
-  });
+  req.post.populate('comments', function(err, post){
+    res.json(req.post);
+  })
 };
 
 // Creates a new Post in the DB.
@@ -59,6 +58,20 @@ exports.upvote = function(req, res) {
   req.post.upvote(function(err, post){
     if (err) { return handleError(res, err); }
     res.json(post);
+  });
+};
+
+// Create comments for Post
+exports.comment = function(req, res) {
+  var comment = new Comment(req.body);
+  comment.post = req.post;
+  comment.save(function(err, comment){
+    if(err){ return next(err); }
+    req.post.comments.push(comment);
+    req.post.save(function(err, comment){
+      if (err) { return handleError(res, err); }
+    });
+    res.json(comment);
   });
 };
 

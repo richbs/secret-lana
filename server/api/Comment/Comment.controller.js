@@ -54,6 +54,12 @@ exports.destroy = function(req, res) {
   });
 };
 
+exports.upvote = function(req, res) {
+  req.comment.upvote(function (err, comment){
+    if (err) { return handleError(res, err); }
+    res.json(comment);
+  })
+}
 function handleError(res, err) {
   return res.send(500, err);
 }
