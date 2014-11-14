@@ -54,6 +54,14 @@ exports.destroy = function(req, res) {
   });
 };
 
+// Increments vote count on Post
+exports.upvote = function(req, res) {
+  req.post.upvote(function(err, post){
+    if (err) { return handleError(res, err); }
+    res.json(post);
+  });
+};
+
 function handleError(res, err) {
   return res.send(500, err);
 }
