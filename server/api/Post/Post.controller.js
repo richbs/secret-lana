@@ -15,7 +15,7 @@ exports.index = function(req, res) {
 // Get a single Post
 exports.show = function(req, res) {
   req.post.populate('comments', function(err, post){
-    res.json(req.post);
+    res.json(req.post)
   })
 };
 
